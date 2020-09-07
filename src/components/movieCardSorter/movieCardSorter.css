@@ -1,0 +1,19 @@
+ .btn-group{
+    height: 100%;
+
+ }
+ .filterBtn {
+    background-color: #232323;
+    border: none;
+    color: rgba(225,225,225,.6);
+    margin-right: 2rem;
+    border-bottom: 2px solid rgba(225,225,225,.4);
+    height: 100%;
+ }
+ .filterBtn:focus {
+   outline: none;
+ }
+ .active {
+    border: none;
+    border-bottom: 2px solid tomato;
+}

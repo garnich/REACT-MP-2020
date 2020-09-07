@@ -1,0 +1,22 @@
+.card {
+    width: 30%;
+    border: none !important;
+}
+.card-body {
+    padding: 0 !important;
+    background-color: #232323;
+    color: rgba(225,225,225,.6);
+}
+.date {
+    border: 1px solid rgba(225,225,225,.6);
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+}
+
+.card-img {
+    min-width: 100%;
+    height: 80%;
+}

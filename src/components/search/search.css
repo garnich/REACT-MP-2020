@@ -1,0 +1,24 @@
+.search h1{
+    color: white;
+    font-family: 'Ubuntu', sans-serif;
+    text-transform: uppercase;
+    font-weight: 300;
+    letter-spacing: 0.25rem;
+}
+.btn.search-btn {
+    background-color: #f65261;
+    color: #ffffff;
+    font-size: .75 rem;
+}
+.input {
+    flex-basis: 80%;
+    background-color: rgba(35,35,35,.7);
+    border-color: transparent;
+    letter-spacing: 0.1rem;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    padding-left: 1.5rem;
+}
