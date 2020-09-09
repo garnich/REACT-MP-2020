@@ -33,7 +33,7 @@ class MovieList extends Component {
 
     const filteredMovies = filter === 'all' ? movies : movies.filter( item => item.genre.toLowerCase() === filter);
     const sortedMovies = sorter ? filteredMovies.sort((a, b) =>  a.date - b.date ) : filteredMovies;
-// debugger;
+
     return (
       <div className={"wrapper col-12 p-5 "}>
         <div className={'sort-filter'}>

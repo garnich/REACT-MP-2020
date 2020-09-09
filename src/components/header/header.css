@@ -24,3 +24,6 @@
     color: #f65261;
     font-size: 26px;
 }
+.btn.addBtn:focus {
+    box-shadow: none;
+  }

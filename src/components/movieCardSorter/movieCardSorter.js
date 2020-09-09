@@ -1,4 +1,5 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 
 class MovieCardSorter extends PureComponent {
   constructor(props){
@@ -43,9 +44,8 @@ class MovieCardSorter extends PureComponent {
   }
 }
 
-// MovieCardSorter.propTypes = {
-//     filter: PropTypes.string.isRequired,
-//     onFilterChange: PropTypes.func.isRequired,
-// }
+MovieCardSorter.propTypes = {
+    onSorterChange: PropTypes.func.isRequired,
+}
 
 export default MovieCardSorter
