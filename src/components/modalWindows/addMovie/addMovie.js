@@ -1,12 +1,10 @@
-import React, { Component }from 'react'
+import React from 'react'
 
 import './addMovie.css'
 
-class AddMovie extends Component {
-  constructor() {
-    super()
-
-    this.handleSignIn = (event) => {
+const AddMovie = (props) => {
+  
+    const handleSignIn = (event) => {
       event.preventDefault()
       const form = event.target;
       const newMovie = {
@@ -18,27 +16,18 @@ class AddMovie extends Component {
         overview: form[4].value,
         runtime: form[5].value,
       };
-      
+      // -----TEST FORM SUBMIT-----
       console.log(newMovie)
-    }
-  }
+      // --------------------------
 
-  render() {
-  const {
-    id,
-    title,
-    data,
-    url,
-    genre,
-    overview,
-    runtime,
-  } = this.props;
+      props.handleClose();
+    }
 
     return (
       <form
         role="form"
         className="col-12"
-        onSubmit={this.handleSignIn}
+        onSubmit={handleSignIn}
       >
         <h2 className="title">Add movie</h2>
         <div className="form-group">
@@ -112,7 +101,6 @@ class AddMovie extends Component {
         </div>
       </form>
     )
-  }
 }
 
 export default AddMovie

@@ -2,6 +2,12 @@
     width: 30%;
     border: none !important;
 }
+.card >.btn.card-options {
+    display: none;
+}
+.card:hover >.btn.card-options {
+    display: block;
+}
 .card-body {
     padding: 0 !important;
     background-color: #232323;
@@ -20,7 +26,6 @@
     height: 80%;
 }
 .btn.card-options {
-    opacity: .5;
     width: 2rem;
     height: 2rem;
     position: absolute;
@@ -34,10 +39,14 @@
     -o-border-radius: 50%;
     background-color: #232323;
 }
-.btn.card-options:hover {
-    opacity: 1;
-}
 .svg-inline--fa {
     vertical-align: 0;
     color: #ffffff;
+}
+.datatest {
+    position: absolute;
+    top: 0;
+    height: 450px;
+    width: 100%;
+    background-color: tomato;
 }

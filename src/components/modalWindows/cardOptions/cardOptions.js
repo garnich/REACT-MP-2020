@@ -16,7 +16,7 @@ const CardOptions = (props) => {
   const handleShowDelete = () => setShowDelete(true);
   const handleCloseDelete = () => setShowDelete(false);
 
-  const { handleClose } = props;
+  const { handleClose, id,title, date, genre } = props;
 
   return (
     <div className={'options'}>
@@ -26,14 +26,25 @@ const CardOptions = (props) => {
         handleClose={handleCloseEdit} 
         show={showEdit}
       >
-        <EditMovie />
+        <EditMovie 
+          id={id}
+          title={title}
+          date={date}
+          genre={genre}
+          handleClose={handleCloseEdit}
+          closeOptions={handleClose} 
+        />
       </ModalWindow>
       <p onClick={handleShowDelete}>Delete</p>
       <ModalWindow 
         handleClose={handleCloseDelete} 
         show={showDelete}
       >
-        <DeleteMovie />
+        <DeleteMovie 
+          id={id} 
+          handleClose={handleCloseDelete}
+          closeOptions={handleClose}
+        />
       </ModalWindow>
     </div>
   )

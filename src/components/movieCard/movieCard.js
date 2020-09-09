@@ -9,26 +9,41 @@ import './movieCard.css';
 
 const MovieCard = props => {
   const [show, setShow] = useState(false);
+
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
 
-  const { title, date, genre, img } = props;
+  const handleChange = () => {
+    props.onIdChange(id);
+  };
+
+  const { id, title, date, year, genre, img } = props;
 
   return (
-    <li className="card w-30 mb-3">
+    <li 
+      className={'card w-30 mb-3'}
+      onClick={handleChange}
+    >
       <Button 
         onClick={handleShow}
         variant="basic" 
         className={'card-options mr-2'} >
           <FontAwesomeIcon icon={faEllipsisV} />
       </Button>
-      {show && <CardOptions handleClose={handleClose} />}
+      {show && 
+        <CardOptions 
+          handleClose={handleClose} 
+          id={id}
+          title={title}
+          date={date}
+          genre={genre}
+        />}
       <img className="card-img" src={img} alt="poster" />
       <div className={"card-body"}>
         <div className="d-flex justify-content-between pt-3">
           <span className={"h5 font-weight-light mb-0"}>{title}</span>
           <div>
-            <span className={"date px-3 py-1"}>{date}</span>
+            <span className={"date px-3 py-1"}>{year}</span>
           </div>
         </div>
         <span className={"h6 font-weight-light"}>{genre}</span>
@@ -43,7 +58,7 @@ MovieCard.defaultProps = {
 
 MovieCard.propTypes = {
     title: PropTypes.string.isRequired,
-    date: PropTypes.number,
+    date: PropTypes.string,
     genre: PropTypes.string.isRequired,
     img: PropTypes.string.isRequired,
 }

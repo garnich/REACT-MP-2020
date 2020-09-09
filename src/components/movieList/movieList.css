@@ -1,5 +1,11 @@
 .wrapper {
     background-color: #232323;
+    position: relative;
+}
+.wrapper ul{
+    flex-flow: row wrap;
+    align-content: space-between;
+    justify-content: space-between;
 }
 .sort-filter {
     border-bottom: 1px solid #000000;
