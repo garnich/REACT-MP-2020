@@ -10,6 +10,15 @@ import { Button } from 'react-bootstrap';
 
 import './header.css'
 
+const useShowMovieDetails = (id, func) => {
+    useEffect(
+        () => {
+            if(id !== ''){
+                func(true);
+            }
+    }, [id]);
+}
+
 const Header = (props) => {
     const [show, setShow] = useState(false);
     const [showDetails, setShowDetails] = useState(false);
@@ -22,11 +31,7 @@ const Header = (props) => {
 
     const { id } = props;
 
-    useEffect(() => {
-        if(id !== ''){
-            setShowDetails(true);
-        }
-    }, [id]);
+    useShowMovieDetails(id, setShowDetails);
 
     const movieDetailsData = useMemo(() => movies.find(item => item.id === id), [movies, id]);
 
