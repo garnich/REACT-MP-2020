@@ -1,3 +1,1 @@
-import MovieCardFilter from './movieCardFilter';
-
-export default MovieCardFilter;
+export { default } from './movieCardFilter';

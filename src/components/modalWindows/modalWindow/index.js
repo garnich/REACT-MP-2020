@@ -1,3 +1,1 @@
-import ModalWindow from './modalWindow';
-
-export default ModalWindow;
+export { default } from './modalWindow';

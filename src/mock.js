@@ -1,6 +1,6 @@
 const mockData = [
     {
-        id: 1,
+        id: '1',
         title: 'Kill Bill: Vol 2',
         date: '2004-04-08',
         year: 2004,
@@ -12,7 +12,7 @@ const mockData = [
         url: 'http://test.test',
     },
     {
-        id: 2,
+        id: '2',
         title: 'From Dusk till Dawn',
         date: '1996-01-17',
         year: 1996,
@@ -24,7 +24,7 @@ const mockData = [
         url: 'http://test.test',
     },
     {
-        id: 3,
+        id: '3',
         title: 'The Dark Knight',
         date: '2008-06-14',
         year: 2008,
@@ -36,7 +36,7 @@ const mockData = [
         url: 'http://test.test',
     },
     {
-        id: 4,
+        id: '4',
         title: 'Unknown',
         date: '2010-11-13',
         year: 2010,
@@ -47,7 +47,7 @@ const mockData = [
         url: 'http://test.test',
     },
     {
-        id: 5,
+        id: '5',
         title: 'Ace Ventura: When Nature Calls',
         date: '1995-11-10',
         year: 1995,
@@ -59,7 +59,7 @@ const mockData = [
         url: 'http://test.test',
     },
     {
-        id: 6,
+        id: '6',
         title: 'High Crimes',
         date: '2002-04-05',
         year: 2002,

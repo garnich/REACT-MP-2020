@@ -1,3 +1,1 @@
-import MovieCard from './movieCard';
-
-export default MovieCard;
+export { default } from './movieCard';

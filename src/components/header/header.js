@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useMemo, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import Logo from '../logo';
 import Search from '../search';
 import ModalWindow from '../modalWindows/modalWindow';
@@ -13,20 +14,21 @@ const Header = (props) => {
     const [show, setShow] = useState(false);
     const [showDetails, setShowDetails] = useState(false);
     
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-    const handleShowDetails = () => setShowDetails(!!id);
-    const handleCloseDetails = () => setShowDetails(false);
+    const handleClose = useCallback(() => setShow(false), []);
+    const handleShow = useCallback(() => setShow(true), []);
+    const handleCloseDetails = useCallback(() => setShowDetails(false), []);
     
     const movies = useContext(MockDataContext);
 
     const { id } = props;
 
     useEffect(() => {
-        handleShowDetails();
-      }, [id]);
+        if(id !== ''){
+            setShowDetails(true);
+        }
+    }, [id]);
 
-    const movieDetailsData = movies.find(item => item.id === id);
+    const movieDetailsData = useMemo(() => movies.find(item => item.id === id), [movies, id]);
 
     return (
         <div className={'header mb-2'}>
@@ -52,4 +54,14 @@ const Header = (props) => {
     )
 }
 
-export default Header
+Header.propTypes = {
+    id: PropTypes.string.isRequired
+  }
+
+Header.defaultProps = {
+    id: '',
+}
+
+const MemoizedHeader = React.memo(Header);
+
+export default MemoizedHeader

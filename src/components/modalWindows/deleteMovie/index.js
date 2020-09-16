@@ -1,3 +1,1 @@
-import DeleteMovie from './deleteMovie';
-
-export default DeleteMovie;
+export { default } from './deleteMovie';

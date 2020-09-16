@@ -1,3 +1,2 @@
-import Footer from './footer'
+export { default } from './footer'
 
-export default Footer

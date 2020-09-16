@@ -52,4 +52,6 @@
 }
 .details-info-description {
     font-weight: 300;
+    height: 9rem;
+    overflow-y: auto;
 }

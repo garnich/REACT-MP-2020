@@ -1,17 +1,17 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types'
 
 import './movieCardFilter.css'
 
-const MovieCardFilter = (props) => {
+const buttons = [
+  { name: 'all', label: 'all' },
+  { name: 'documentary', label: 'documentary' },
+  { name: 'comedy', label: 'comedy' },
+  { name: 'horror', label: 'horror' },
+  { name: 'crime', label: 'crime' },
+]
 
-  const buttons = [
-    { name: 'all', label: 'all' },
-    { name: 'documentary', label: 'documentary' },
-    { name: 'comedy', label: 'comedy' },
-    { name: 'horror', label: 'horror' },
-    { name: 'crime', label: 'crime' },
-  ]
+const MovieCardFilter = (props) => {
 
 const { filter, onFilterChange } = props
 
@@ -36,4 +36,6 @@ MovieCardFilter.propTypes = {
     onFilterChange: PropTypes.func.isRequired,
 }
 
-export default MovieCardFilter
+const MemoizedMovieCardFilter = React.memo(MovieCardFilter);
+
+export default MemoizedMovieCardFilter

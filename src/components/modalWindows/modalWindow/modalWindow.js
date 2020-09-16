@@ -28,4 +28,7 @@ ModalWindow.propTypes = {
   show: PropTypes.bool.isRequired,
 }
 
-export default ModalWindow
+
+const MemoizedModalWindow = React.memo(ModalWindow);
+
+export default MemoizedModalWindow

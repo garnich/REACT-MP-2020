@@ -11,7 +11,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/style.css';
 
 export default function App() {
-  const [id, setId] = useState(null);
+  const [id, setId] = useState('');
   const onIdChange = (id) => setId(id);
 
   return (

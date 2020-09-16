@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import CardOptions from './../modalWindows/cardOptions'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,14 +10,15 @@ import './movieCard.css';
 const MovieCard = props => {
   const [show, setShow] = useState(false);
 
-  const handleShow = () => setShow(true);
-  const handleClose = () => setShow(false);
+  const handleShow = useCallback(() => setShow(true), []);
+  const handleClose = useCallback(() => setShow(false), []);
 
-  const handleChange = () => {
-    props.onIdChange(id);
-  };
+  const {onIdChange, id, title, date, year, genre, img } = props;
 
-  const { id, title, date, year, genre, img } = props;
+  const handleChange = useCallback(() => {
+    onIdChange(id);
+  }, [id]);
+
 
   return (
     <li 
@@ -53,14 +54,17 @@ const MovieCard = props => {
 }
 
 MovieCard.defaultProps = {
-  img: 'https://lh3.googleusercontent.com/proxy/IDYZil4pcksXb86bIQtmBR-utVw2WLcXMrws4jMfCjQDke4q1Y-tsnrOJlcBalFRIogugGnj_j8iotbwuiivSwg0W8EUiNg5OjmLNdMjAVlerA'
+  img: 'https://kinozanoza.ru/uploads/poster_none.png'
 }
 
 MovieCard.propTypes = {
+    onIdChange: PropTypes.func.isRequired,
     title: PropTypes.string.isRequired,
     date: PropTypes.string,
     genre: PropTypes.string.isRequired,
     img: PropTypes.string.isRequired,
 }
 
-export default MovieCard
+const MemoizedMovieCard = React.memo(MovieCard);
+
+export default MemoizedMovieCard

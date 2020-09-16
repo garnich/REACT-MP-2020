@@ -38,4 +38,6 @@ const DeleteMovie = (props) => {
   )
 }
 
-export default DeleteMovie
+const MemoizedDeleteMovie = React.memo(DeleteMovie);
+
+export default MemoizedDeleteMovie

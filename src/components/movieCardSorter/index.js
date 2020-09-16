@@ -1,3 +1,1 @@
-import MovieCardSorter from './movieCardSorter';
-
-export default MovieCardSorter;
+export { default } from './movieCardSorter';

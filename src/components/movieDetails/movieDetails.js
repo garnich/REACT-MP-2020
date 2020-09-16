@@ -12,9 +12,7 @@ const MovieDetails = props => {
   const { handleDetails, data } = props;
   const { title, year, genre, img, raiting, duration, description } = data;
 
-  const handleChange = () => {
-    handleDetails();
-  };
+  const handleChange = () => handleDetails();
 
   return (
     <div className={'details'}>
@@ -59,4 +57,6 @@ MovieDetails.propTypes = {
   })
 }
 
-export default MovieDetails
+const MemoizedMovieDetails = React.memo(MovieDetails);
+
+export default MemoizedMovieDetails

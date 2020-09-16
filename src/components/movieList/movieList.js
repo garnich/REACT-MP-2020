@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 import MovieCard from '../movieCard';
@@ -21,8 +21,15 @@ const MovieList = (props) => {
 
   if (!movies.length) return null;
 
-  const filteredMovies = filter === 'all' ? movies : movies.filter( item => item.genre.toLowerCase() === filter);
-  const sortedMovies = sorter ? filteredMovies.sort((a, b) =>  Date.parse(a.date) - Date.parse(b.date) ) : filteredMovies;
+  const filteredMovies = useMemo(
+    () => filter === 'all' ? movies : movies.filter( 
+      item => item.genre.toLowerCase() === filter),
+    [filter, movies]);
+
+  const sortedMovies = useMemo(
+    () => sorter ? filteredMovies.sort(
+      (a, b) =>  Date.parse(a.date) - Date.parse(b.date) ) : filteredMovies, 
+    [sorter, filteredMovies]);
 
   return (
     <div className={"wrapper col-12 p-5 "}>
@@ -68,4 +75,6 @@ MovieList.propTypes = {
   )
 }
 
-export default MovieList
+const MemoizedMovieList = React.memo(MovieList);
+
+export default MemoizedMovieList

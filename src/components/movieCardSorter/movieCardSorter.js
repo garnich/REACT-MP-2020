@@ -40,4 +40,6 @@ MovieCardSorter.propTypes = {
     onSorterChange: PropTypes.func.isRequired,
 }
 
-export default MovieCardSorter
+const MemoizedMovieCardSorter = React.memo(MovieCardSorter);
+
+export default MemoizedMovieCardSorter

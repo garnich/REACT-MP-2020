@@ -1,3 +1,1 @@
-import CardOptions from './cardOptions';
-
-export default CardOptions;
+export { default } from './cardOptions';

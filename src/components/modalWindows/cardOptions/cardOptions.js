@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
+import PropTypes from 'prop-types';
+
 import ModalWindow from './../modalWindow';
-import EditMovie from './../editMovie';
+import AddMovie from './../addMovie';
 import DeleteMovie from './../deleteMovie';
 
 
@@ -11,12 +13,12 @@ const CardOptions = (props) => {
   const [showEdit, setShowEdit] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
 
-  const handleShowEdit = () => setShowEdit(true);
-  const handleCloseEdit = () => setShowEdit(false);
-  const handleShowDelete = () => setShowDelete(true);
-  const handleCloseDelete = () => setShowDelete(false);
+  const handleShowEdit = useCallback(() => setShowEdit(true), []);
+  const handleCloseEdit = useCallback(() => setShowEdit(false), []);
+  const handleShowDelete = useCallback(() => setShowDelete(true), []);
+  const handleCloseDelete = useCallback(() => setShowDelete(false), []);
 
-  const { handleClose, id,title, date, genre } = props;
+  const { handleClose, id, title, date, genre } = props;
 
   return (
     <div className={'options'}>
@@ -26,13 +28,13 @@ const CardOptions = (props) => {
         handleClose={handleCloseEdit} 
         show={showEdit}
       >
-        <EditMovie 
+        <AddMovie 
           id={id}
           title={title}
           date={date}
           genre={genre}
-          handleClose={handleCloseEdit}
-          closeOptions={handleClose} 
+          handleClose={handleClose} 
+          editMovie
         />
       </ModalWindow>
       <p onClick={handleShowDelete}>Delete</p>
@@ -50,4 +52,14 @@ const CardOptions = (props) => {
   )
 }
 
-export default CardOptions
+CardOptions.propTypes = {
+  handleClose: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired,
+  genre: PropTypes.string.isRequired,
+}
+
+const MemoizedACardOptions = React.memo(CardOptions);
+
+export default MemoizedACardOptions
