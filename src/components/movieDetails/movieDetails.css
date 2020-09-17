@@ -1,0 +1,57 @@
+.details {
+    background-color: rgba(0,0,0,0.9);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    padding: 1rem 2rem;
+}
+
+.details-header .fa-search {
+    color: #f65261;
+}
+.details-content {
+    padding-top: 2rem;
+}
+.details-content img {
+    height: 300px;
+}
+.details-info {
+    padding-left: 3rem;
+    padding-right: 4rem;
+}
+.details-info-title h1 {
+    color: #ffffff;
+    text-transform: uppercase;
+    font-weight: 300;
+    letter-spacing: 0.25rem;
+}
+.details-info-title span {
+    margin-left: 1rem;
+    display: block;
+    border: 1px solid #ffffff;
+    color: #57db27;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    line-height: 50px;
+    text-align: center;
+    font-size: 1.25rem;
+}
+.details-info-date-and-duration {
+    color: #f65261;
+    font-size: 1.5rem;
+    font-weight: 300;
+    margin-bottom: 1rem;
+}
+.details-info-description {
+    font-weight: 300;
+    height: 9rem;
+    overflow-y: auto;
+}

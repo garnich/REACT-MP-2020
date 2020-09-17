@@ -1,0 +1,25 @@
+.options {
+    position: absolute;
+    right: .25rem;
+    top: .25rem;
+    background-color: #232323;
+    color: rgba(225,225,225,.6);
+    
+}
+.options p {
+    padding-left: 1rem;
+    padding-right: 3rem;
+    margin-bottom: .5rem;
+    cursor: pointer;
+}
+.options p:nth-of-type(1) {
+    margin-top: 1.5rem;
+}
+.options p:hover {
+    background-color: #f65261;
+}
+.options span {
+    float: right;
+    padding-right: .5rem;
+    cursor: pointer;
+}

@@ -1,0 +1,70 @@
+.modalWindow .modal-content {
+    background-color: #232323;
+    color: rgba(225,225,225,.6);
+    text-transform: uppercase;
+    font-weight: 300;
+    letter-spacing: 0.25rem;
+}
+.modalWindow .modal-header {
+    border: none;
+}
+.modalWindow .modal-header .close span {
+    color: rgba(225,225,225,.6);
+    font-size: 2rem;
+    box-shadow: none;
+    font-weight: 300;
+}
+.modalWindow .modal-body form .title {
+    font-weight: 300;
+    letter-spacing: 0.25rem;
+}
+.modalWindow .modal-body form .form-group label {
+    color: #F65261;
+    font-weight: 400;
+    padding-top: 1rem;
+    padding-bottom: .5rem;
+}
+
+.modalWindow .modal-body form .form-group input {
+    color: rgba(225,225,225,.6);
+    background-color: #424242;
+    border: none;
+    letter-spacing: 0.1rem;
+    font-weight: 300;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+.modalWindow .modal-body form .form-group p {
+    letter-spacing: 0.1rem;
+    font-weight: 300;
+    padding-top: 0;
+    margin-bottom: 0;
+}
+.modalWindow .modal-body form p {
+    color: rgba(225,225,225,.6);
+    background-color: #232323;
+    border: none;
+    letter-spacing: 0.1rem;
+    font-weight: 300;
+    padding-top: 1rem;
+    text-transform: none;
+}
+
+.modalWindow .modal-body form button {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding: .75rem 2rem;
+    font-size: 1.25rem;
+    text-transform: uppercase;
+}
+.modalWindow .modal-body form .reset {
+    color: #F65261;
+    background-color: #232323;
+    border: 1px solid #F65261;
+    margin-right: 0.5rem;
+}
+.modalWindow .modal-body form .submit, .modalWindow .modal-body form .save, .modalWindow .modal-body form .confirm {
+    color: #ffffff;
+    background-color: #F65261;
+    border: 1px solid #F65261;
+}
