@@ -10,8 +10,8 @@ import './movieDetails.css';
 const MovieDetails = props => {
 
   const { handleDetails, data } = props;
-  const { title, year, genre, img, raiting, duration, description } = data;
 
+  const { title, release_date, genres, poster_path, vote_average, runtime, overview } = data;
   const handleChange = () => handleDetails();
 
   return (
@@ -26,18 +26,18 @@ const MovieDetails = props => {
         </Button>
       </div>
       <div className={'details-content d-flex justify-content-start'}>
-        <img src={img} alt="poster" />
+        <img src={poster_path} alt="poster" />
         <div className={'details-info'}>
           <div className={'details-info-title d-flex'}>
             <h1>{title}</h1>
-            <span>{raiting}</span>
+            <span>{vote_average}</span>
           </div>
-          <p className={'details-info-genre'}>{genre}</p>
+          <p className={'details-info-genre'}>{typeof genres === 'object' ? [genres[0], genres[1]].join(',') : genres}</p>
           <div className={'details-info-date-and-duration d-flex'}>
-            <span className={'pr-3'}>{year}</span>   
-            <span>{`${duration} min`}</span>
+            <span className={'pr-3'}>{new Date(release_date).getFullYear()}</span>   
+            <span>{`${runtime} min`}</span>
           </div>
-          <p className={'details-info-description'}>{description}</p>
+          <p className={'details-info-description'}>{overview}</p>
         </div>
       </div>
     </div>
@@ -48,9 +48,9 @@ MovieDetails.propTypes = {
   handleDetails: PropTypes.func.isRequired,
   data: PropTypes.shape({
     title: PropTypes.string.isRequired,
-    year: PropTypes.number,
-    genre: PropTypes.string.isRequired,
-    img: PropTypes.string.isRequired,
+    release_date: PropTypes.string,
+    genres: PropTypes.array.isRequired,
+    poster_path: PropTypes.string.isRequired,
     raiting: PropTypes.number,
     duration: PropTypes.number,
     description: PropTypes.string,

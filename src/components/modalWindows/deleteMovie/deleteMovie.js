@@ -1,4 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { removeMovie } from './../../../services/requests';
+import { movieHideDetails } from './../../../actions/actions';
 
 import './deleteMovie.css';
 
@@ -8,17 +11,17 @@ const DeleteMovie = (props) => {
     id,
     handleClose,
     closeOptions,
+    deleteMovie,
+    hideDetails,
   } = props;
 
   const handleDelete = (event) => {
-    event.preventDefault()
-   
-    // -----TEST FORM SUBMIT-----
-    console.log(`MOVIE ID=${id} DELETED!`);
-    // --------------------------
+    event.preventDefault();
 
     handleClose();
     closeOptions();
+    hideDetails();
+    deleteMovie(id);
   }
 
   return (
@@ -38,6 +41,13 @@ const DeleteMovie = (props) => {
   )
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    deleteMovie: (id) => {dispatch(removeMovie(id))},
+    hideDetails: () => {dispatch(movieHideDetails())},
+  }
+}
+    
 const MemoizedDeleteMovie = React.memo(DeleteMovie);
 
-export default MemoizedDeleteMovie
+export default connect(null, mapDispatchToProps)(MemoizedDeleteMovie)

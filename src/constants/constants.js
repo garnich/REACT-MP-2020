@@ -1,0 +1,9 @@
+export const LOAD_MOVIES = 'LOAD_MOVIES';
+export const ACTIVE_MOVIE_ID = 'ACTIVE_MOVIE_ID';
+export const ADD_NEW_MOVIE = 'ADD_NEW_MOVIE';
+export const EDIT_MOVIE = 'EDIT_MOVIE';
+export const DELETE_MOVIE = 'DELETE_MOVIE';
+export const MOVIE_SHOW_DETAILS = 'MOVIE_SHOW_DETAILS';
+export const MOVIE_HIDE_DETAILS = 'MOVIE_HIDE_DETAILS';
+export const SORT_MOVIES = 'SORT_MOVIES';
+export const FILTER_MOVIES = 'FILTER_MOVIES';

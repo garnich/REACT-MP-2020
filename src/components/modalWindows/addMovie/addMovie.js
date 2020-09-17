@@ -1,5 +1,8 @@
 import React, { Fragment, useCallback } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
+import { addMovie, updateMovie } from './../../../services/requests';
 
 import './addMovie.css';
 
@@ -7,45 +10,63 @@ import './addMovie.css';
 
     const {
       id,
-      title,
-      data,
-      genre,
-      url,
-      overview,
-      runtime,
+      movie,
       handleClose,
-      editMovie
+      editMovie,
+      addNewMovie, 
+      editExistMovie,
     } = props;
-  
+
+    const {
+      title, 
+      tagline,
+      vote_average,
+      vote_count,
+      release_date,
+      poster_path,
+      budget,
+      revenue,
+      genres,
+      overview,
+      runtime
+    } = movie;
+    
     const handleSignIn = useCallback((event) => {
       event.preventDefault()
       const form = event.target;
       if(!editMovie){
         const newMovie = {
-          id: `MO${new Date().valueOf()}VIE`,
           title: form[0].value,
-          data: form[1].value,
-          url: form[2].value,
-          genre: form[3].value,
+          tagline: form[0].value,
+          vote_average: 5.5,
+          vote_count: 100,
+          release_date: form[1].value,
+          poster_path: form[2].value,
+          budget: 55000000,
+          revenue: 136906000,
+          genres: [form[3].value],
           overview: form[4].value,
-          runtime: form[5].value,
+          runtime: Number(form[5].value),
         };
-        // -----TEST FORM ADDMOVIE SUBMIT-----
-        console.log('TEST FORM ADDMOVIE SUBMIT', newMovie)
-        // --------------------------
+
+        addNewMovie(newMovie);
       } else {
         const editMovie = {
-          id: props.id,
+          id,
           title: form[0].value,
-          data: form[1].value,
-          url: form[2].value,
-          genre: form[3].value,
+          tagline: form[0].value,
+          vote_average,
+          vote_count,
+          budget,
+          revenue,
+          release_date: form[1].value,
+          poster_path: form[2].value,
+          genres: form[3].value.split(','),
           overview: form[4].value,
-          runtime: form[5].value,
+          runtime: Number(form[5].value),
         };
-        // -----TEST FORM EDITMOVIE SUBMIT-----
-        console.log('TEST FORM EDITMOVIE SUBMIT', editMovie)
-        // --------------------------
+
+        editExistMovie(editMovie);
       }
 
       handleClose();
@@ -57,7 +78,7 @@ import './addMovie.css';
         className="col-12"
         onSubmit={handleSignIn}
       >
-        <h2 className="title">Add movie</h2>
+        <h2 className="title">{editMovie ? 'Edit movie' : 'Add movie'}</h2>
         <div className="form-group">
           {editMovie && (
             <Fragment>
@@ -86,17 +107,17 @@ import './addMovie.css';
             name="date"
             id="date"
             placeholder="Select date"
-            defaultValue={data}
+            defaultValue={release_date}
             required
           />
-          <label htmlFor="url">Movie url</label>
+          <label htmlFor="url">Movie poster url</label>
           <input
             type="url"
             className="form-control"
             name="url"
             id="url"
             placeholder="Movie URL here"
-            defaultValue={url}
+            defaultValue={poster_path}
             required
           />
           <label htmlFor="genre">Genre</label>
@@ -107,7 +128,7 @@ import './addMovie.css';
             list="genre"
             id="genreInput"
             placeholder="Select genre"
-            defaultValue={genre}
+            defaultValue={typeof genres === 'object' ? [genres[0], genres[1]].join(',') : genres}
             required
           />
           <datalist id="genre">
@@ -155,27 +176,57 @@ import './addMovie.css';
 }
 
 AddMovie.propTypes = {
-  id: PropTypes.string,
-  title: PropTypes.string,
-  data: PropTypes.string,
-  genre: PropTypes.string,
-  url: PropTypes.string,
-  overview: PropTypes.string,
-  runtime: PropTypes.number,
+  id: PropTypes.number,
+  movie: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+
+    release_date: PropTypes.string.isRequired,
+    genres: PropTypes.oneOfType([
+      PropTypes.array,
+      PropTypes.string,
+    ]).isRequired,
+    poster_path: PropTypes.string.isRequired,
+    overview: PropTypes.string.isRequired,
+    runtime: PropTypes.number.isRequired,
+  }),
   handleClose: PropTypes.func.isRequired,
   editMovie: PropTypes.bool
 }
 
 AddMovie.defaultProps = {
-  title: '',
-  data: '',
-  genre: '',
-  url: '',
-  overview: '',
-  runtime: null,
+  id: null,
+  movie: PropTypes.shape({
+    id: null,
+    title: '',
+    release_date: '2020-09-17',
+    genres: [],
+    poster_path: 'https://kinozanoza.ru/uploads/poster_none.png',
+    overview: '',
+    runtime: null,
+  }),
   editMovie: false
 }
 
+
+const mapStateToProps = (state, {id}) => {
+    if (!id) {
+      return
+    }
+    const data = state.movies.find(item => item.id === id);
+    
+    return {
+          movie: data,
+      }
+    }
+    
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addNewMovie: (data) => {dispatch(addMovie(data))},
+    editExistMovie: (data) => {dispatch(updateMovie(data))},
+  }
+}
+    
 const MemoizedAddMovie = React.memo(AddMovie);
 
-export default MemoizedAddMovie
+export default connect(mapStateToProps, mapDispatchToProps)(MemoizedAddMovie)

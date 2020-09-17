@@ -1,45 +1,33 @@
-import React, { useState, useEffect, useContext, useMemo, useCallback } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
 import Logo from '../logo';
 import Search from '../search';
 import ModalWindow from '../modalWindows/modalWindow';
 import AddMovie from '../modalWindows/addMovie';
 import MovieDetails from '../movieDetails';
-import MockDataContext from '../../context';
+import { movieShowDetails, movieHideDetails } from './../../actions/actions';
 import { Button } from 'react-bootstrap';
 
 import './header.css'
 
-const useShowMovieDetails = (id, func) => {
-    useEffect(
-        () => {
-            if(id !== ''){
-                func(true);
-            }
-    }, [id]);
-}
-
 const Header = (props) => {
     const [show, setShow] = useState(false);
-    const [showDetails, setShowDetails] = useState(false);
     
     const handleClose = useCallback(() => setShow(false), []);
     const handleShow = useCallback(() => setShow(true), []);
-    const handleCloseDetails = useCallback(() => setShowDetails(false), []);
-    
-    const movies = useContext(MockDataContext);
+    const handleCloseDetails = useCallback(() => hideDetails(), []);
 
-    const { id } = props;
-
-    useShowMovieDetails(id, setShowDetails);
+    const { movies, id, showMovieDetails, hideDetails } = props;
 
     const movieDetailsData = useMemo(() => movies.find(item => item.id === id), [movies, id]);
 
     return (
         <div className={'header mb-2'}>
-            {showDetails && <MovieDetails handleDetails={handleCloseDetails} data={movieDetailsData}/>}
+            {showMovieDetails && <MovieDetails handleDetails={handleCloseDetails} data={movieDetailsData}/>}
             <div className={'header-background'}/>
-            {!showDetails && 
+            {!showMovieDetails && 
                 <div className={'header-content'}>
                     <div className={'col-12 d-flex justify-content-between pt-4'}>
                         <Logo/>
@@ -60,13 +48,28 @@ const Header = (props) => {
 }
 
 Header.propTypes = {
-    id: PropTypes.string.isRequired
+    id: PropTypes.number
   }
 
 Header.defaultProps = {
-    id: '',
+    id: null,
+    showMovieDetails: false
 }
 
-const MemoizedHeader = React.memo(Header);
+const mapStateToProps = (state) => {
+    return {
+        movies: state.movies,
+        id: state.id,
+        showMovieDetails: state.showMovieDetails,
+    }
+  }
+  
+  const mapDispatchToProps = (dispatch) => {
+    return {
+      hideDetails: () => {dispatch(movieHideDetails())},
+    }
+  }
 
-export default MemoizedHeader
+const MemoizedHeader = React.memo(Header);
+  
+export default connect(mapStateToProps, mapDispatchToProps)(MemoizedHeader)

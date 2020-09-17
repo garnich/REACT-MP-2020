@@ -11,6 +11,14 @@ const MovieCardSorter = (props) => {
       name: 'RELEASE DATE',
       value: 'RELEASE DATE',
     },
+    {
+      name: 'GENRE',
+      value: 'GENRE',
+    },
+    {
+      name: 'RAITING',
+      value: 'RAITING',
+    },
   ];
 
   const [value, setValue] = useState('?');
