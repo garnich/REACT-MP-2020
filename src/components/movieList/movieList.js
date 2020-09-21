@@ -6,26 +6,13 @@ import MovieCard from '../movieCard';
 import MovieCardFilter from '../movieCardFilter';
 import MovieCardSorter from '../movieCardSorter';
 import { fetchMovies } from './../../services/requests';
-import { sortMovies, filterMovies } from './../../actions/actions';
 import { creatingFilterCategories } from './../../utils/helper';
 
 import './movieList.css';
 
 const MovieList = (props) => {
-
-  const [filter, setFilter] = useState('all');
-  const [sorter, setSorter] = useState('');
-
-  const onFilterChange = useCallback((filter) => {
-    setFilter(filter);
-    movieFilter(filter)
-  }, [filter]);
-  const onSorterChange = useCallback((sorter) => {
-    setSorter(sorter);
-    movieSorter(sorter)
-  }, [sorter]);
   
-  const { movies, loadMovies, movieSorter, movieFilter, sortedAndFilteredMovies } = props;
+  const { movies, loadMovies, sortedAndFilteredMovies } = props;
 
   useEffect(() => {loadMovies()}, []);
 
@@ -34,16 +21,10 @@ const MovieList = (props) => {
   return (
     <div className={"wrapper col-12 p-5 "}>
       <div className={'sort-filter'}>
-        <MovieCardFilter 
-          filter={filter}
-          onFilterChange={onFilterChange}
-          filterCategories={creatingFilterCategories(movies)}
-        />
-        <MovieCardSorter
-          onSorterChange={onSorterChange}
-        />
+        <MovieCardFilter filterCategories={creatingFilterCategories(movies)} />
+        <MovieCardSorter />
       </div>
-      <p className={'my-3 h5 font-weight-light'}>{`${movies.length} movies found`}</p>
+      <p className={'my-3 h5 font-weight-light'}>{`${sortedAndFilteredMovies.length} movies found`}</p>
       <ul className={'d-flex p-0 m-0'}>
         {sortedAndFilteredMovies.map(({ id, title, release_date, genres, poster_path, ...rest }) => {
           return (
@@ -83,15 +64,15 @@ MovieList.propTypes = {
 const mapStateToProps = (state) => {
   return {
       movies: state.movies,
-      sortedAndFilteredMovies: state.sortedAndFilteredMovies
+      filter: state.filter,
+      sorter: state.sorter,
+      sortedAndFilteredMovies: state.sortedAndFilteredMovies,
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     loadMovies: () => {dispatch(fetchMovies())},
-    movieSorter: (sorter) => {dispatch(sortMovies(sorter))},
-    movieFilter: (filter) => {dispatch(filterMovies(filter))}
   }
 }
 

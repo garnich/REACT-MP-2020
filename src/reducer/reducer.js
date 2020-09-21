@@ -13,8 +13,7 @@ import {
 import { 
     updateObjectInArray,
     removeObjectFromArray,
-    movieSorter,
-    movieFilter
+    movieSoreterAndFilter
 } from './../utils/helper';
 
 const reducer = (state, action) => {
@@ -24,6 +23,8 @@ const reducer = (state, action) => {
             id: null,
             showMovieDetails: false,
             sortedAndFilteredMovies: [],
+            sorter: null,
+            filter: 'all',
         }
     }
 
@@ -70,13 +71,15 @@ const reducer = (state, action) => {
             }
         case SORT_MOVIES:
             return {
-                ...state,
-                sortedAndFilteredMovies: movieSorter(state.movies, action.sorter)
+                ...state, 
+                sorter: action.sorter,
+                sortedAndFilteredMovies: movieSoreterAndFilter(state.movies, state.filter, action.sorter),
             }
         case FILTER_MOVIES:
             return {
                 ...state,
-                sortedAndFilteredMovies: movieFilter(state.movies, action.filter)
+                filter: action.filter,
+                sortedAndFilteredMovies: movieSoreterAndFilter(state.movies, action.filter, state.sorter)
             }
         
         default:

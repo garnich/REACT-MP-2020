@@ -43,10 +43,22 @@ const movieFilter = (array, filter) => {
   }).filter(el => el.genres.includes(filter.toLowerCase()));
 }
 
+const movieSoreterAndFilter = (array, filter, sorter) => {
+  const sortedArray = movieSorter([...array], sorter);
+
+  return filter === 'all' ? sortedArray : sortedArray.map( item => {
+    return {
+      ...item,
+      genres: item.genres.map(el=> el.toLowerCase())
+    }
+  }).filter(el => el.genres.includes(filter.toLowerCase()));
+}
+
 export {
     updateObjectInArray,
     removeObjectFromArray,
     movieSorter,
     creatingFilterCategories,
-    movieFilter
+    movieFilter,
+    movieSoreterAndFilter
 }

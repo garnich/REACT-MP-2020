@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { sortMovies } from './../../actions/actions';
 
 const MovieCardSorter = (props) => {
   const options = [
@@ -27,7 +29,7 @@ const MovieCardSorter = (props) => {
   
   const handleChange = (event) => {
     onFilterChange(event.target.value);
-    props.onSorterChange(event.target.value)
+    props.movieSorter(event.target.value)
   };
 
   return (
@@ -45,9 +47,16 @@ const MovieCardSorter = (props) => {
 }
 
 MovieCardSorter.propTypes = {
-    onSorterChange: PropTypes.func.isRequired,
+  movieSorter: PropTypes.func.isRequired,
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    movieSorter: (sorter) => {dispatch(sortMovies(sorter))},
+  }
 }
 
 const MemoizedMovieCardSorter = React.memo(MovieCardSorter);
 
-export default MemoizedMovieCardSorter
+export default connect(null, mapDispatchToProps)(MemoizedMovieCardSorter);
+
