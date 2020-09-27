@@ -4,8 +4,6 @@ import {
     ADD_NEW_MOVIE,
     EDIT_MOVIE,
     DELETE_MOVIE,
-    MOVIE_SHOW_DETAILS,
-    MOVIE_HIDE_DETAILS,
     SORT_MOVIES,
     FILTER_MOVIES,
 } from './../constants/constants';
@@ -20,8 +18,7 @@ const reducer = (state, action) => {
     if(state === undefined) {
         return {
             movies: [],
-            id: null,
-            showMovieDetails: false,
+            activeId: null,
             sortedAndFilteredMovies: [],
             sorter: null,
             filter: 'all',
@@ -38,7 +35,7 @@ const reducer = (state, action) => {
         case ACTIVE_MOVIE_ID:
             return {
                 ...state,
-                id: action.id
+                activeId: action.id
             };
         case ADD_NEW_MOVIE: 
             return {
@@ -55,19 +52,9 @@ const reducer = (state, action) => {
         case DELETE_MOVIE:
             return {
                 ...state,
-                id: null,
+                activeId: null,
                 movies: removeObjectFromArray(state.movies, action),
                 sortedAndFilteredMovies: removeObjectFromArray(state.movies, action),
-            }
-        case MOVIE_SHOW_DETAILS:
-            return {
-                ...state,
-                showMovieDetails: true
-            }
-        case MOVIE_HIDE_DETAILS:
-            return {
-                ...state,
-                showMovieDetails: false
             }
         case SORT_MOVIES:
             return {

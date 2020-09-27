@@ -70,11 +70,7 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    loadMovies: () => {dispatch(fetchMovies())},
-  }
-}
+const mapDispatchToProps = {loadMovies: fetchMovies};
 
 const MemoizedMovieList = React.memo(MovieList);
 

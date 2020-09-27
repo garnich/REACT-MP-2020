@@ -4,8 +4,6 @@ import {
     ADD_NEW_MOVIE,
     EDIT_MOVIE,
     DELETE_MOVIE,
-    MOVIE_SHOW_DETAILS,
-    MOVIE_HIDE_DETAILS,
     SORT_MOVIES,
     FILTER_MOVIES,
 } from './../constants/constants';
@@ -35,14 +33,6 @@ const deleteMovie = (id) => ({
     id
 });
 
-const movieShowDetails = () => ({
-    type: MOVIE_SHOW_DETAILS,
-});
-
-const movieHideDetails = () => ({
-    type: MOVIE_HIDE_DETAILS,
-});
-
 const sortMovies = (sorter) => ({
     type: SORT_MOVIES,
     sorter
@@ -60,8 +50,6 @@ export {
     addNewMovie,
     editMovie,
     deleteMovie,
-    movieShowDetails,
-    movieHideDetails,
     sortMovies,
     filterMovies,
 } 

@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { removeMovie } from './../../../services/requests';
-import { movieHideDetails } from './../../../actions/actions';
 
 import './deleteMovie.css';
 
@@ -12,16 +11,16 @@ const DeleteMovie = (props) => {
     handleClose,
     closeOptions,
     deleteMovie,
-    hideDetails,
+    handleCleanId
   } = props;
 
   const handleDelete = (event) => {
     event.preventDefault();
 
+    deleteMovie(id);
     handleClose();
     closeOptions();
-    hideDetails();
-    deleteMovie(id);
+    handleCleanId();
   }
 
   return (
@@ -44,7 +43,6 @@ const DeleteMovie = (props) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     deleteMovie: (id) => {dispatch(removeMovie(id))},
-    hideDetails: () => {dispatch(movieHideDetails())},
   }
 }
     

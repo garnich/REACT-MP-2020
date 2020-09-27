@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import CardOptions from './../modalWindows/cardOptions';
-import { activeId, movieShowDetails } from './../../actions/actions';
+import { activeId } from './../../actions/actions';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
@@ -16,12 +16,11 @@ const MovieCard = props => {
   const handleShow = useCallback(() => setShow(true), []);
   const handleClose = useCallback(() => setShow(false), []);
 
-  const {id, title, release_date, genres, poster_path, onIdChange, showDetails } = props;
+  const {id, title, release_date, genres, poster_path, onIdChange } = props;
 
-  const handleChange = useCallback(() => {
-    onIdChange(id);
-    showDetails();
-  }, [id]);
+  const handleChange = useCallback(() => onIdChange(id), [id]);
+
+  const handleCleanId = useCallback(() => onIdChange(''), []);
 
 
   return (
@@ -38,6 +37,7 @@ const MovieCard = props => {
       {show && 
         <CardOptions 
           handleClose={handleClose} 
+          handleCleanId={handleCleanId}
           id={id}
         />}
       <img className="card-img" src={poster_path} alt="poster" />
@@ -72,7 +72,6 @@ MovieCard.propTypes = {
 const mapDispatchToProps = (dispatch) => {
   return {
     onIdChange: (id) => {dispatch(activeId(id))},
-    showDetails: () => {dispatch(movieShowDetails())},
   }
 }
 

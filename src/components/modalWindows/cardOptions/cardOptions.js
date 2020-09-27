@@ -18,7 +18,7 @@ const CardOptions = (props) => {
   const handleShowDelete = useCallback(() => setShowDelete(true), []);
   const handleCloseDelete = useCallback(() => setShowDelete(false), []);
 
-  const { handleClose, id} = props;
+  const { handleClose, id, handleCleanId} = props;
 
   return (
     <div className={'options'}>
@@ -42,6 +42,7 @@ const CardOptions = (props) => {
         <DeleteMovie 
           id={id} 
           handleClose={handleCloseDelete}
+          handleCleanId={handleCleanId}
           closeOptions={handleClose}
         />
       </ModalWindow>
@@ -52,6 +53,7 @@ const CardOptions = (props) => {
 CardOptions.propTypes = {
   id: PropTypes.number.isRequired,
   handleClose: PropTypes.func.isRequired,
+  handleCleanId: PropTypes.func.isRequired,
 }
 
 const MemoizedACardOptions = React.memo(CardOptions);

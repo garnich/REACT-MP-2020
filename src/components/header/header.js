@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -7,27 +7,29 @@ import Search from '../search';
 import ModalWindow from '../modalWindows/modalWindow';
 import AddMovie from '../modalWindows/addMovie';
 import MovieDetails from '../movieDetails';
-import { movieShowDetails, movieHideDetails } from './../../actions/actions';
 import { Button } from 'react-bootstrap';
 
 import './header.css'
 
 const Header = (props) => {
     const [show, setShow] = useState(false);
+    const [showDetails, setShowDetails] = useState(null);
     
     const handleClose = useCallback(() => setShow(false), []);
     const handleShow = useCallback(() => setShow(true), []);
-    const handleCloseDetails = useCallback(() => hideDetails(), []);
+    const handleCloseDetails = useCallback(() => setShowDetails(null), [activeId]);
 
-    const { movies, id, showMovieDetails, hideDetails } = props;
+    const { movies, activeId } = props;
 
-    const movieDetailsData = useMemo(() => movies.find(item => item.id === id), [movies, id]);
+    useEffect(() => setShowDetails(activeId), [activeId]);
+
+    const movieDetailsData = useMemo(() => movies.find(item => item.id === activeId), [movies, activeId]);
 
     return (
         <div className={'header mb-2'}>
-            {showMovieDetails && <MovieDetails handleDetails={handleCloseDetails} data={movieDetailsData}/>}
+            {showDetails && activeId && <MovieDetails handleDetails={handleCloseDetails} data={movieDetailsData}/>}
             <div className={'header-background'}/>
-            {!showMovieDetails && 
+            {!showDetails && 
                 <div className={'header-content'}>
                     <div className={'col-12 d-flex justify-content-between pt-4'}>
                         <Logo/>
@@ -59,17 +61,10 @@ Header.defaultProps = {
 const mapStateToProps = (state) => {
     return {
         movies: state.movies,
-        id: state.id,
-        showMovieDetails: state.showMovieDetails,
-    }
-  }
-  
-  const mapDispatchToProps = (dispatch) => {
-    return {
-      hideDetails: () => {dispatch(movieHideDetails())},
+        activeId: state.activeId,
     }
   }
 
 const MemoizedHeader = React.memo(Header);
   
-export default connect(mapStateToProps, mapDispatchToProps)(MemoizedHeader)
+export default connect(mapStateToProps)(MemoizedHeader)
