@@ -1,0 +1,13 @@
+.modalWindow .modal-body form p.error {
+    color: #f65261;
+    font-size: 12px;
+}
+
+.modalWindow .modal-body form .form-group input.notValid {
+    background-color: #f65261;
+    margin-top: 5px;
+}
+
+.modalWindow .modal-body form .form-group input.notValid::placeholder {
+    color: white;
+}

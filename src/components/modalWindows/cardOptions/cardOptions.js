@@ -29,7 +29,7 @@ const CardOptions = (props) => {
         show={showEdit}
       >
         <AddMovie 
-          id={id}
+          activeId={id}
           handleClose={handleClose} 
           editMovie
         />
