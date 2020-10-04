@@ -1,30 +1,26 @@
 import React from 'react';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { filterMovies } from './../../actions/actions';
 
 import './movieCardFilter.css'
 
-const buttons = [
-  { name: 'all', label: 'all' },
-  { name: 'documentary', label: 'documentary' },
-  { name: 'comedy', label: 'comedy' },
-  { name: 'horror', label: 'horror' },
-  { name: 'crime', label: 'crime' },
-]
-
 const MovieCardFilter = (props) => {
 
-const { filter, onFilterChange } = props
+const { filter, movieFilter, filterCategories } = props;
 
-  const button = buttons.map(({ name, label }) => {
-    const isActive = filter === name
+filterCategories.unshift('all');
+
+  const button = filterCategories.map((item) => {
+    const isActive = filter === item
     return (
       <button
         type="button"
         className={`filterBtn ${isActive ? 'active' : ''}`}
-        key={name}
-        onClick={() => onFilterChange(name)}
+        key={item}
+        onClick={() => movieFilter(item)}
       >
-        {label.toUpperCase()}
+        {item.toUpperCase()}
       </button>
     )
   })
@@ -33,9 +29,21 @@ const { filter, onFilterChange } = props
 
 MovieCardFilter.propTypes = {
     filter: PropTypes.string.isRequired,
-    onFilterChange: PropTypes.func.isRequired,
+    filterCategories: PropTypes.array.isRequired,
+}
+
+const mapStateToProps = (state) => {
+  return {
+      filter: state.filter,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    movieFilter: (filter) => {dispatch(filterMovies(filter))},
+  }
 }
 
 const MemoizedMovieCardFilter = React.memo(MovieCardFilter);
 
-export default MemoizedMovieCardFilter
+export default connect(mapStateToProps, mapDispatchToProps)(MemoizedMovieCardFilter);

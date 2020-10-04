@@ -1,60 +1,42 @@
-import React, { useState, useContext, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import MovieCard from '../movieCard';
 import MovieCardFilter from '../movieCardFilter';
 import MovieCardSorter from '../movieCardSorter';
-import MockDataContext from '../../context';
+import { fetchMovies } from './../../services/requests';
+import { creatingFilterCategories } from './../../utils/helper';
 
 import './movieList.css';
 
 const MovieList = (props) => {
+  
+  const { movies, loadMovies, sortedAndFilteredMovies } = props;
 
-  const [filter, setFilter] = useState('all');
-  const [sorter, setSorter] = useState('');
-
-  const onFilterChange = (filter) => setFilter(filter);
-  const onSorterChange = (sorter) => setSorter(sorter);
-
-  const { onIdChange } = props;
-  const movies = useContext(MockDataContext);
+  useEffect(() => {loadMovies()}, []);
 
   if (!movies.length) return null;
-
-  const filteredMovies = useMemo(
-    () => filter === 'all' ? movies : movies.filter( 
-      item => item.genre.toLowerCase() === filter),
-    [filter, movies]);
-
-  const sortedMovies = useMemo(
-    () => sorter ? filteredMovies.sort(
-      (a, b) =>  Date.parse(a.date) - Date.parse(b.date) ) : filteredMovies, 
-    [sorter, filteredMovies]);
-
+  
   return (
     <div className={"wrapper col-12 p-5 "}>
       <div className={'sort-filter'}>
-        <MovieCardFilter 
-          filter={filter}
-          onFilterChange={onFilterChange}
-        />
-        <MovieCardSorter
-          onSorterChange={onSorterChange}
-        />
+        <MovieCardFilter filterCategories={creatingFilterCategories(movies)} />
+        <MovieCardSorter />
       </div>
-      <p className={'my-3 h5 font-weight-light'}>{`${filteredMovies.length} movies found`}</p>
+      <p className={'my-3 h5 font-weight-light'}>{`${sortedAndFilteredMovies.length} movies found`}</p>
       <ul className={'d-flex p-0 m-0'}>
-        {sortedMovies.map(({ id, title, date, year, genre, img }) => {
+        {sortedAndFilteredMovies.map(({ id, title, release_date, genres, poster_path, ...rest }) => {
           return (
             <MovieCard 
               key={id}
               id={id}
               title={title}
-              date={date}
-              year={year}
-              genre={genre}
-              img={img}
-              onIdChange={onIdChange}
+              release_date={release_date}
+              year={new Date(release_date).getFullYear()}
+              genres={typeof genres === 'object' ? [genres[0], genres[1]].join(',') : genres}
+              poster_path={poster_path}
+              restData={rest}
             />
           )
         })}
@@ -64,17 +46,32 @@ const MovieList = (props) => {
 }
 
 MovieList.propTypes = {
-  movie: PropTypes.arrayOf(
+  movies: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       title: PropTypes.string.isRequired,
-      date: PropTypes.number.isRequired,
-      genre: PropTypes.string.isRequired,
-      img: PropTypes.string.isRequired,
+      release_date: PropTypes.string.isRequired,
+      genres: PropTypes.oneOfType([
+        PropTypes.array,
+        PropTypes.string,
+      ]).isRequired,
+      poster_path: PropTypes.string.isRequired,
     })
-  )
+  ),
+  loadMovies: PropTypes.func.isRequired,
 }
+
+const mapStateToProps = (state) => {
+  return {
+      movies: state.movies,
+      filter: state.filter,
+      sorter: state.sorter,
+      sortedAndFilteredMovies: state.sortedAndFilteredMovies,
+  }
+}
+
+const mapDispatchToProps = {loadMovies: fetchMovies};
 
 const MemoizedMovieList = React.memo(MovieList);
 
-export default MemoizedMovieList
+export default connect(mapStateToProps, mapDispatchToProps)(MemoizedMovieList)
