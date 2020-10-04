@@ -18,8 +18,28 @@ const fetchMovies = (moviesNumbers = 6) => {
     }
 }
 
+//Add movie or Update movie
+const addOrUpdateMovie = (data, func) => {
+    const { editMovie, ...values } = data;
+
+    if(!editMovie){
+        const newMovie = {
+            ...values,
+            genres: values.genres.split(','),
+            tagline: values.title,
+            vote_average: 5.5,
+            vote_count: 100,
+            budget: 55000000,
+            revenue: 136906000,
+        };
+        return addMovie(newMovie, func);
+    } else {
+        return updateMovie(values, func);
+    }
+};
+
 //Add movie
-const addMovie = (data) => {
+const addMovie = (data, func) => {
     return (dispatch) => {
         fetch('http://localhost:4000/movies', {
           method: 'post',
@@ -29,13 +49,16 @@ const addMovie = (data) => {
           },
           body: JSON.stringify(data)})
         .then(res=> res.json())
-        .then(res => dispatch(addNewMovie(res)))
+        .then(res => {
+            dispatch(addNewMovie(res));
+            func();
+        })
         .catch(err => console.log('Fetch Error :-S', err))
     }
 }
 
 //Update movie
-const updateMovie = (data) => {
+const updateMovie = (data, func) => {
       return (dispatch) => {
         fetch('http://localhost:4000/movies', {
           method: 'put',
@@ -45,7 +68,10 @@ const updateMovie = (data) => {
           },
           body: JSON.stringify(data)})
         .then(res=> res.json())
-        .then(res => dispatch(editMovie(res)))
+        .then(res => {
+            dispatch(editMovie(res));
+            func();
+        })
         .catch(err => console.log('Fetch Error :-S', err))
     }
 }
@@ -67,7 +93,6 @@ const removeMovie = (id) => {
 
 export { 
     fetchMovies,
-    addMovie,
-    updateMovie,
+    addOrUpdateMovie,
     removeMovie,
 };

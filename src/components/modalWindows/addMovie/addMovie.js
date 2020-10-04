@@ -2,9 +2,9 @@ import React, { Fragment, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useFormik } from 'formik';
-import * as Yup from 'yup';
+import { validationSchema } from './../../../services/move.schema';
 
-import { addMovie, updateMovie } from './../../../services/requests';
+import { addOrUpdateMovie } from './../../../services/requests';
 
 import ErrorMessage from '../../errorMessage';
 
@@ -17,50 +17,16 @@ import './addMovie.css';
       movie,
       handleClose,
       editMovie,
-      addNewMovie, 
-      editExistMovie,
+      submitMovieForm,
     } = props;
 
     const formik = useFormik({
         initialValues: {
-          ...movie
+          ...movie,
+          editMovie,
         },
-        validationSchema: Yup.object({
-          title: Yup.string()
-            .required('Required'),
-          release_date: Yup.string()
-            .max(10, 'Must be 8 characters')
-            .required('Required'),
-          genres: Yup.string()
-            .max(100, 'Must be 8 characters')
-            .required('Required'),
-          poster_path: Yup.string().url().required('Wrong URL'),
-          overview: Yup.string()
-            .max(500, 'Must be 15 characters or less')
-            .required('Required'),
-          runtime: Yup.number()
-            .positive()
-            .integer()
-            .required('Required'),
-        }),
-        onSubmit: values => {
-          if(!editMovie){
-                const newMovie = {
-                  ...values,
-                  genres: values.genres.split(','),
-                  tagline: values.title,
-                  vote_average: 5.5,
-                  vote_count: 100,
-                  budget: 55000000,
-                  revenue: 136906000,
-                };
-                addNewMovie(newMovie);
-              } else {
-                editExistMovie(values);
-              }
-        
-              handleClose();
-        }
+        validationSchema,
+        onSubmit: values => submitMovieForm(values, handleClose),
       });
 
     return (
@@ -239,12 +205,9 @@ const mapStateToProps = (state, {activeId}) => {
       }
     }
     
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addNewMovie: (data) => {dispatch(addMovie(data))},
-    editExistMovie: (data) => {dispatch(updateMovie(data))},
-  }
-}
+const mapDispatchToProps = {
+    submitMovieForm: addOrUpdateMovie,
+};
     
 const MemoizedAddMovie = React.memo(AddMovie);
 

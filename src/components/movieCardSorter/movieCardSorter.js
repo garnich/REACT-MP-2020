@@ -3,26 +3,27 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { sortMovies } from './../../actions/actions';
 
-const MovieCardSorter = (props) => {
-  const options = [
-    {
-      name: 'Select…',
-      value: null,
-    },
-    {
-      name: 'RELEASE DATE',
-      value: 'RELEASE DATE',
-    },
-    {
-      name: 'GENRE',
-      value: 'GENRE',
-    },
-    {
-      name: 'RAITING',
-      value: 'RAITING',
-    },
-  ];
+const options = [
+  {
+    name: 'Select…',
+    value: null,
+  },
+  {
+    name: 'RELEASE DATE',
+    value: 'RELEASE DATE',
+  },
+  {
+    name: 'GENRE',
+    value: 'GENRE',
+  },
+  {
+    name: 'RAITING',
+    value: 'RAITING',
+  },
+];
 
+const MovieCardSorter = (props) => {
+  
   const [value, setValue] = useState('?');
 
   const onFilterChange = (value) => setValue(value);
@@ -50,11 +51,9 @@ MovieCardSorter.propTypes = {
   movieSorter: PropTypes.func.isRequired,
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    movieSorter: (sorter) => {dispatch(sortMovies(sorter))},
-  }
-}
+const mapDispatchToProps = {
+    movieSorter: sortMovies,
+};
 
 const MemoizedMovieCardSorter = React.memo(MovieCardSorter);
 

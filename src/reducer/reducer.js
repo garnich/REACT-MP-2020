@@ -14,16 +14,15 @@ import {
     movieSoreterAndFilter
 } from './../utils/helper';
 
-const reducer = (state, action) => {
-    if(state === undefined) {
-        return {
-            movies: [],
-            activeId: null,
-            sortedAndFilteredMovies: [],
-            sorter: null,
-            filter: 'all',
-        }
-    }
+const initialState = {
+    movies: [],
+    activeId: null,
+    sortedAndFilteredMovies: [],
+    sorter: null,
+    filter: 'all',
+};
+
+const reducer = (state = initialState, action) => {
 
     switch (action.type) {
         case LOAD_MOVIES:

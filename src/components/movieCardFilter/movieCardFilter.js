@@ -38,11 +38,9 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    movieFilter: (filter) => {dispatch(filterMovies(filter))},
-  }
-}
+const mapDispatchToProps = {
+    movieFilter: filterMovies,
+};
 
 const MemoizedMovieCardFilter = React.memo(MovieCardFilter);
 
