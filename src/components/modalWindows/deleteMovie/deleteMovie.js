@@ -40,11 +40,9 @@ const DeleteMovie = (props) => {
   )
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    deleteMovie: (id) => {dispatch(removeMovie(id))},
-  }
-}
+const mapDispatchToProps = {
+    deleteMovie: removeMovie,
+};
     
 const MemoizedDeleteMovie = React.memo(DeleteMovie);
 

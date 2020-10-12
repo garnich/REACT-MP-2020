@@ -69,11 +69,9 @@ MovieCard.propTypes = {
     poster_path: PropTypes.string.isRequired,
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onIdChange: (id) => {dispatch(activeId(id))},
-  }
-}
+const mapDispatchToProps = {
+    onIdChange: activeId,
+};
 
 const MemoizedMovieCard = React.memo(MovieCard);
 

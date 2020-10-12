@@ -1,82 +1,39 @@
 import React, { Fragment, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { useFormik } from 'formik';
+import { validationSchema } from './../../../services/move.schema';
 
-import { addMovie, updateMovie } from './../../../services/requests';
+import { addOrUpdateMovie } from './../../../services/requests';
+
+import ErrorMessage from '../../errorMessage';
 
 import './addMovie.css';
 
   const AddMovie = (props) => {
 
     const {
-      id,
+      activeId,
       movie,
       handleClose,
       editMovie,
-      addNewMovie, 
-      editExistMovie,
+      submitMovieForm,
     } = props;
 
-    const {
-      title, 
-      tagline,
-      vote_average,
-      vote_count,
-      release_date,
-      poster_path,
-      budget,
-      revenue,
-      genres,
-      overview,
-      runtime
-    } = movie;
-    
-    const handleSignIn = useCallback((event) => {
-      event.preventDefault()
-      const form = event.target;
-      if(!editMovie){
-        const newMovie = {
-          title: form[0].value,
-          tagline: form[0].value,
-          vote_average: 5.5,
-          vote_count: 100,
-          release_date: form[1].value,
-          poster_path: form[2].value,
-          budget: 55000000,
-          revenue: 136906000,
-          genres: [form[3].value],
-          overview: form[4].value,
-          runtime: Number(form[5].value),
-        };
-
-        addNewMovie(newMovie);
-      } else {
-        const editMovie = {
-          id,
-          title: form[0].value,
-          tagline: form[0].value,
-          vote_average,
-          vote_count,
-          budget,
-          revenue,
-          release_date: form[1].value,
-          poster_path: form[2].value,
-          genres: form[3].value.split(','),
-          overview: form[4].value,
-          runtime: Number(form[5].value),
-        };
-
-        editExistMovie(editMovie);
-      }
-
-      handleClose();
-    }, [])
+    const formik = useFormik({
+        initialValues: {
+          ...movie,
+          editMovie,
+        },
+        validationSchema,
+        onSubmit: values => submitMovieForm(values, handleClose),
+      });
 
     return (
       <form
         role="form"
         className="col-12"
-        onSubmit={handleSignIn}
+        onSubmit={formik.handleSubmit}
       >
         <h2 className="title">{editMovie ? 'Edit movie' : 'Add movie'}</h2>
         <div className="form-group">
@@ -86,87 +43,117 @@ import './addMovie.css';
               <p 
                 name="id"
                 id="id">
-                {id}
+                {activeId}
               </p>
             </Fragment>
           )}
           <label htmlFor="title">Title</label>
           <input
             type="text"
-            className="form-control"
+            className={`form-control ${formik.touched.title && formik.errors.title ? 'notValid' : ''}`}
             name="title"
             id="title"
             placeholder="Movie title here"
-            defaultValue={title}
-            required
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.title}
           />
+          {formik.touched.title && formik.errors.title && <ErrorMessage msg={formik.errors.title}/>}
           <label htmlFor="date">Relase date</label>
           <input
             type="date"
-            className="form-control"
-            name="date"
+            className={`form-control ${formik.touched.release_date && formik.errors.release_date ? 'notValid' : ''}`}
+            name="release_date"
             id="date"
             placeholder="Select date"
-            defaultValue={release_date}
-            required
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.release_date}
           />
+          {formik.touched.release_date && formik.errors.release_date && <ErrorMessage msg={formik.errors.release_date}/>}
           <label htmlFor="url">Movie poster url</label>
           <input
             type="url"
-            className="form-control"
-            name="url"
+            className={`form-control ${formik.touched.poster_path && formik.errors.poster_path ? 'notValid' : ''}`}
+            name="poster_path"
             id="url"
             placeholder="Movie URL here"
-            defaultValue={poster_path}
-            required
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.poster_path}
           />
-          <label htmlFor="genre">Genre</label>
-          <input
-            type="text"
-            className="form-control"
-            name="genre"
-            list="genre"
-            id="genreInput"
-            placeholder="Select genre"
-            defaultValue={typeof genres === 'object' ? [genres[0], genres[1]].join(',') : genres}
-            required
-          />
-          <datalist id="genre">
-            <option value="Documentary" />
-            <option value="Comedy" />
-          </datalist>
+          {formik.touched.poster_path && formik.errors.poster_path && <ErrorMessage msg={formik.errors.poster_path}/>}
+          { editMovie ?
+              <Fragment>
+                <label htmlFor="genre">Genre</label>
+                <input
+                  type="text"
+                  className={`form-control ${formik.touched.genres && formik.errors.genres ? 'notValid' : ''}`}
+                  name="genres"
+                  list="genres"
+                  id="genreInput"
+                  placeholder="Select genre"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.genres}
+                />
+                {formik.touched.genres && formik.errors.genres && <ErrorMessage msg={formik.errors.genres}/>}
+                <datalist id="genres">
+                  {formik.values.genres.map(genre => {
+                    <option value={`${genre}`} />
+                  })}
+                </datalist>
+              </Fragment> : <Fragment>
+                <label htmlFor="genre">Genre</label>
+                <input
+                  type="text"
+                  className={`form-control ${formik.touched.genres && formik.errors.genres ? 'notValid' : ''}`}
+                  name="genres"
+                  id="genreInput"
+                  placeholder="Select genre"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.genres}
+                />
+                {formik.touched.genres && formik.errors.genres && <ErrorMessage msg={formik.errors.genres}/>}
+              </Fragment>
+          }
           <label htmlFor="overview">Overview</label>
           <input
             type="text"
-            className="form-control"
+            className={`form-control ${formik.touched.overview && formik.errors.overview ? 'notValid' : ''}`}
             name="overview"
             id="overview"
             placeholder="Overview here"
-            defaultValue={overview}
-            required
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.overview}
           />
+          {formik.touched.overview && formik.errors.overview && <ErrorMessage msg={formik.errors.overview}/>}
           <label htmlFor="runtime">Runtime</label>
           <input
-            type="text"
-            className="form-control"
+            type="number"
+            className={`form-control ${formik.touched.runtime && formik.errors.runtime ? 'notValid' : ''}`}
             name="runtime"
             id="runtime"
             placeholder="Runtime here"
-            defaultValue={runtime}
-            required
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.runtime || undefined}
           />
+          {formik.touched.runtime && formik.errors.runtime && <ErrorMessage msg={formik.errors.runtime}/>}
         </div>
         <div className={'d-flex justify-content-end'}>
-          <button type="reset" className="btn reset">
+          <button type="reset" className="btn reset" onClick={formik.resetForm}>
             Reset
           </button>
 
           {editMovie ? (
-            <button type="submit" className="btn submit">
+            <button type="submit" className="btn submit" onClick={formik.handleSubmit}>
               Save
             </button>
           ) : (
-            <button type="submit" className="btn save">
+            <button type="submit" className="btn save" onClick={formik.handleSubmit}>
               Submit
             </button>
           )}
@@ -176,56 +163,51 @@ import './addMovie.css';
 }
 
 AddMovie.propTypes = {
-  id: PropTypes.number,
+  activeId: PropTypes.number,
   movie: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
+    title: PropTypes.string,
 
-    release_date: PropTypes.string.isRequired,
-    genres: PropTypes.oneOfType([
-      PropTypes.array,
-      PropTypes.string,
-    ]).isRequired,
-    poster_path: PropTypes.string.isRequired,
-    overview: PropTypes.string.isRequired,
-    runtime: PropTypes.number.isRequired,
+    release_date: PropTypes.string,
+    genres: PropTypes.array,
+    poster_path: PropTypes.string,
+    overview: PropTypes.string,
+    runtime: PropTypes.number,
   }),
   handleClose: PropTypes.func.isRequired,
   editMovie: PropTypes.bool
 }
 
-AddMovie.defaultProps = {
-  id: null,
-  movie: PropTypes.shape({
-    id: null,
-    title: '',
-    release_date: '2020-09-17',
-    genres: [],
-    poster_path: 'https://kinozanoza.ru/uploads/poster_none.png',
-    overview: '',
-    runtime: null,
-  }),
-  editMovie: false
-}
-
-
-const mapStateToProps = (state, {id}) => {
-    if (!id) {
-      return
+const mapStateToProps = (state, {activeId}) => {
+    if (!activeId) {
+      return {
+        movie: {
+          title: '',
+          release_date: '',
+          genres: [],
+          poster_path: '',
+          overview: '',
+          runtime: null,
+        }
+      }
     }
-    const data = state.movies.find(item => item.id === id);
+    const data = state.movies.find(item => item.id === activeId);
     
     return {
-          movie: data,
+          movie: {
+            id: data.id,
+            title: data.title,
+            release_date: data.release_date,
+            genres: data.genres,
+            poster_path: data.poster_path,
+            overview: data.overview,
+            runtime: data.runtime,
+          },
       }
     }
     
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addNewMovie: (data) => {dispatch(addMovie(data))},
-    editExistMovie: (data) => {dispatch(updateMovie(data))},
-  }
-}
+const mapDispatchToProps = {
+    submitMovieForm: addOrUpdateMovie,
+};
     
 const MemoizedAddMovie = React.memo(AddMovie);
 
