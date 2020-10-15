@@ -1,0 +1,40 @@
+.wrapper-nomatch {
+    height: calc(100vh - 71px);
+    background-color: #232323;;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5rem;
+}
+
+.content p {
+    text-align: center;
+}
+.content p+p {
+    font-size: 10rem;
+}
+
+.content button {
+    border-radius: .25rem;
+    color: #F65261;
+    background-color: #232323;
+    border: 1px solid #F65261;
+    text-transform: uppercase;
+    padding: .74rem 2rem;
+}
+
+.content button a{
+    text-decoration: none;
+    color: #F65261;
+}
+
+p {
+    color: white;
+    font-family: 'Ubuntu', sans-serif;
+    text-transform: uppercase;
+    font-weight: 300;
+    letter-spacing: 0.25rem;
+}

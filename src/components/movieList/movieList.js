@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import MovieCard from '../movieCard';
 import MovieCardFilter from '../movieCardFilter';
@@ -12,11 +13,9 @@ import './movieList.css';
 
 const MovieList = (props) => {
   
-  const { movies, loadMovies, sortedAndFilteredMovies } = props;
+  const { movies, sortedAndFilteredMovies } = props;
 
-  useEffect(() => {loadMovies()}, []);
-
-  if (!movies.length) return null;
+  if (!movies.length) return <Redirect to={"/no-movies-found"} />;
   
   return (
     <div className={"wrapper col-12 p-5 "}>

@@ -2,9 +2,13 @@ import { loadingMovies, addNewMovie, editMovie, deleteMovie } from './../actions
 
 
 //Fetch movies
-const fetchMovies = (moviesNumbers = 6) => {
+const fetchMovies = (querySring = '', moviesNumbers = 6) => {
+    const baseUrl = `http://localhost:4000/movies?limit=${moviesNumbers}`;
+    const offseNumber = Math.floor(Math.random() * 2000);
+    const url = querySring ? `${baseUrl}&searchBy=title&search=${querySring}` : `${baseUrl}&offset=${offseNumber}`;
+
     return (dispatch) => {
-        fetch(`http://localhost:4000/movies?limit=${moviesNumbers}`)  
+        fetch(url)  
             .then( response => {  
                 if (response.status !== 200) {  
                     console.log('Looks like there was a problem. Status Code: ' +  response.status);  

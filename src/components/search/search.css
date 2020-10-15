@@ -12,6 +12,7 @@
 }
 .input {
     flex-basis: 80%;
+    color: #ffffff;
     background-color: rgba(35,35,35,.7);
     border-color: transparent;
     letter-spacing: 0.1rem;
