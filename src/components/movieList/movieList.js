@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
@@ -14,8 +14,6 @@ import './movieList.css';
 const MovieList = (props) => {
   
   const { movies, sortedAndFilteredMovies } = props;
-
-  if (!movies.length) return <Redirect to={"/no-movies-found"} />;
   
   return (
     <div className={"wrapper col-12 p-5 "}>

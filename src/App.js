@@ -3,6 +3,7 @@ import ErrorBoundary from './components/errorBoundary';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Header from './components/header';
 import MovieDetailsWrapper from './components/movieDetailsWrapper';
+import MovieSearchWrapper from './components/movieSearchWrapper';
 import MovieList from './components/movieList';
 import Footer from './components/footer';
 import NoMovies from './components/noMovies';
@@ -21,16 +22,9 @@ export default function App() {
           <Header />
           <MovieList />
         </Route>
-        <Route path='/search/:search'>
-          <Header />
-          <MovieList />
-        </Route>
-        <Route path='/no-movies-found'>
-          <Header />
-          <NoMovies />
-        </Route>
-        <Route path={`/film/:id`} component={MovieDetailsWrapper} />
-        <Route path="*">
+        <Route path='/search/:query' component={MovieSearchWrapper} />
+        <Route path='/film/:id' component={MovieDetailsWrapper} />
+        <Route path="/">
           <NoMatch />
         </Route>
         </Switch>
