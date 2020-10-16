@@ -7,6 +7,7 @@ module.exports = {
   mode: 'production',
   entry: ['./src/index.js'],
   output: {
+    publicPath: '/',
     filename: '[name].bundle.js',
     chunkFilename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),
@@ -19,7 +20,10 @@ module.exports = {
     contentBase: path.join(__dirname, 'dist'),
     compress: true,
     port: 8000,
-    open: true
+    open: true,
+    historyApiFallback: {
+      index: 'dist/index.html',
+    }
   },
   optimization: {
     splitChunks: {

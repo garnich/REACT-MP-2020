@@ -45,7 +45,6 @@ const MovieDetails = ({data}) => {
 }
 
 MovieDetails.propTypes = {
-  handleDetails: PropTypes.func.isRequired,
   data: PropTypes.shape({
     title: PropTypes.string.isRequired,
     release_date: PropTypes.string,

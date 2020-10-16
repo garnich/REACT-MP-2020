@@ -1,6 +1,7 @@
 .wrapper {
     background-color: #232323;
     position: relative;
+    min-height: calc(100vh - 450px - 71px);
 }
 .wrapper ul{
     flex-flow: row wrap;

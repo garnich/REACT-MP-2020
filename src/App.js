@@ -24,7 +24,7 @@ export default function App() {
         </Route>
         <Route path='/search/:query' component={MovieSearchWrapper} />
         <Route path='/film/:id' component={MovieDetailsWrapper} />
-        <Route path="/">
+        <Route path='*'>
           <NoMatch />
         </Route>
         </Switch>

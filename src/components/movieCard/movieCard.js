@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import CardOptions from './../modalWindows/cardOptions';
 import { activeId } from './../../actions/actions';
 
@@ -13,11 +13,11 @@ import './movieCard.css';
 
 const MovieCard = props => {
   const [show, setShow] = useState(false);
-  const [redirect, setRedirect] = useState(false);
+  const history = useHistory();
 
   const handleShow = useCallback(() => setShow(true), []);
   const handleClose = useCallback(() => setShow(false), []);
-  const handleRedirect = useCallback(() => setRedirect(true), []);
+  const handleRedirect = useCallback(() => history.push(`/film/${id}`), []);
 
   const {id, title, release_date, genres, poster_path, onIdChange } = props;
 
@@ -28,7 +28,6 @@ const MovieCard = props => {
       className={'card w-30 mb-3'}
       onClick={handleRedirect}
     >
-      {redirect ? <Redirect push to={`/film/${id}`} /> : null}
       <Button 
         onClick={handleShow}
         variant="basic" 
