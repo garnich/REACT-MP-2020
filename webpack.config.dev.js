@@ -7,6 +7,7 @@ module.exports = {
   mode: 'development',
   entry: ['./src/index.js'],
   output: {
+    publicPath: '/',
     filename: '[name].js',
     chunkFilename: '[name].js',
     path: path.resolve(__dirname, 'dist')
@@ -22,6 +23,9 @@ module.exports = {
     compress: true,
     port: 9000,
     open: true,
+    historyApiFallback: {
+      index: 'dist/index.html',
+    }
   },
   plugins: [
     new CleanWebpackPlugin(),

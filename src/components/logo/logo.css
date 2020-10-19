@@ -2,3 +2,10 @@
     color: #f65261;
     font-size: 26px;
 }
+a, a:hover, a:focus, a:active {
+    text-decoration: none;
+    color: #f65261;
+}
+a:hover {
+    text-decoration: none !important;
+}

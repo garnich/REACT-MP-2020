@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Logo from '../logo';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,22 +8,21 @@ import { Button } from 'react-bootstrap';
 
 import './movieDetails.css';
 
-const MovieDetails = props => {
-
-  const { handleDetails, data } = props;
+const MovieDetails = ({data}) => {
 
   const { title, release_date, genres, poster_path, vote_average, runtime, overview } = data;
-  const handleChange = () => handleDetails();
 
   return (
-    <div className={'details'}>
+    <div className={'details mb-2'}>
+      <div className={'details-background'}/>
       <div className={'details-header d-flex justify-content-between'}>
         <Logo />
-        <Button 
-          onClick={handleChange}
+        <Button
           variant="basic" 
           className={''} >
-            <FontAwesomeIcon icon={faSearch} />
+            <Link to="/">
+              <FontAwesomeIcon icon={faSearch} />
+            </Link>     
         </Button>
       </div>
       <div className={'details-content d-flex justify-content-start'}>
@@ -45,7 +45,6 @@ const MovieDetails = props => {
 }
 
 MovieDetails.propTypes = {
-  handleDetails: PropTypes.func.isRequired,
   data: PropTypes.shape({
     title: PropTypes.string.isRequired,
     release_date: PropTypes.string,

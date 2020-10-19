@@ -1,10 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './logo.css';
 
 const Logo = () => {
     return (
-        <span className={'logo'}><strong>{'netflix'}</strong>{'roulette'}</span>
+        <Link to="/">
+            <span className={'logo'}><strong>{'netflix'}</strong>{'roulette'}</span>
+        </Link> 
     )
 }
 
