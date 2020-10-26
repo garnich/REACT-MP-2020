@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Logo from './../logo';
 
 
-import './noMatch.css';
+import './noMatch';
 
 const NoMatch = () => {
     return (

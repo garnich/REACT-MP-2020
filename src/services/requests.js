@@ -1,6 +1,5 @@
 import { loadingMovies, addNewMovie, editMovie, deleteMovie } from './../actions/actions';
 
-
 //Fetch movies
 const fetchMovies = (querySring = '', moviesNumbers = 6) => {
     const baseUrl = `http://localhost:4000/movies?limit=${moviesNumbers}`;

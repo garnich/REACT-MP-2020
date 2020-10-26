@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './errorMessage.css';
+import './errorMessage';
 
 const ErrorMessage = (props) => {
     return (

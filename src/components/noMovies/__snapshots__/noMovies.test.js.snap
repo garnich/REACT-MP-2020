@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test noMovies component <noMovies> test snapshot 1`] = `
+<div
+  className="no-movies"
+>
+  <p>
+    No Movie Found
+  </p>
+</div>
+`;

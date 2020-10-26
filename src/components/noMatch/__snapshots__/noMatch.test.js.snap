@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test NoMoatch component <NoMoatch> test snapshot 1`] = `
+<div
+  className="wrapper-nomatch px-4 py-3"
+>
+  <Logo />
+  <div
+    className="content"
+  >
+    <p>
+      Page not found
+    </p>
+    <p>
+      404
+    </p>
+    <button>
+      <Link
+        to="/"
+      >
+        Go back to home
+      </Link>
+    </button>
+  </div>
+</div>
+`;

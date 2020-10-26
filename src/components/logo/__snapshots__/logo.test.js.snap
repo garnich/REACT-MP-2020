@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Logo component <Logo> test snapshot 1`] = `
+<Link
+  to="/"
+>
+  <span
+    className="logo"
+  >
+    <strong>
+      netflix
+    </strong>
+    roulette
+  </span>
+</Link>
+`;
