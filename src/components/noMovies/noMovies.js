@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './noMovies';
+import './noMovies.css';
 
 const NoMovies = () => {
     return (

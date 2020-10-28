@@ -1,0 +1,234 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test <AddMovie/> component <AddMovie> test snapshot should render addMovie modal component 1`] = `
+<form
+  class="col-12"
+  role="form"
+>
+  <h2
+    class="title"
+  >
+    Add movie
+  </h2>
+  <div
+    class="form-group"
+  >
+    <label
+      for="title"
+    >
+      Title
+    </label>
+    <input
+      class="form-control "
+      id="title"
+      name="title"
+      placeholder="Movie title here"
+      type="text"
+      value=""
+    />
+    <label
+      for="date"
+    >
+      Relase date
+    </label>
+    <input
+      class="form-control "
+      id="date"
+      name="release_date"
+      placeholder="Select date"
+      type="date"
+      value=""
+    />
+    <label
+      for="url"
+    >
+      Movie poster url
+    </label>
+    <input
+      class="form-control "
+      id="url"
+      name="poster_path"
+      placeholder="Movie URL here"
+      type="url"
+      value=""
+    />
+    <label
+      for="genre"
+    >
+      Genre
+    </label>
+    <input
+      class="form-control "
+      id="genreInput"
+      name="genres"
+      placeholder="Select genre"
+      type="text"
+      value=""
+    />
+    <label
+      for="overview"
+    >
+      Overview
+    </label>
+    <input
+      class="form-control "
+      id="overview"
+      name="overview"
+      placeholder="Overview here"
+      type="text"
+      value=""
+    />
+    <label
+      for="runtime"
+    >
+      Runtime
+    </label>
+    <input
+      class="form-control "
+      id="runtime"
+      name="runtime"
+      placeholder="Runtime here"
+      type="number"
+    />
+  </div>
+  <div
+    class="d-flex justify-content-end"
+  >
+    <button
+      class="btn reset"
+      type="reset"
+    >
+      Reset
+    </button>
+    <button
+      class="btn save"
+      type="submit"
+    >
+      Submit
+    </button>
+  </div>
+</form>
+`;
+
+exports[`Test <AddMovie/> component <AddMovie> test snapshot should render editMovie modal component 1`] = `
+<form
+  class="col-12"
+  role="form"
+>
+  <h2
+    class="title"
+  >
+    Edit movie
+  </h2>
+  <div
+    class="form-group"
+  >
+    <label
+      for="id"
+    >
+      Movie ID
+    </label>
+    <p
+      id="id"
+      name="id"
+    />
+    <label
+      for="title"
+    >
+      Title
+    </label>
+    <input
+      class="form-control "
+      id="title"
+      name="title"
+      placeholder="Movie title here"
+      type="text"
+      value=""
+    />
+    <label
+      for="date"
+    >
+      Relase date
+    </label>
+    <input
+      class="form-control "
+      id="date"
+      name="release_date"
+      placeholder="Select date"
+      type="date"
+      value=""
+    />
+    <label
+      for="url"
+    >
+      Movie poster url
+    </label>
+    <input
+      class="form-control "
+      id="url"
+      name="poster_path"
+      placeholder="Movie URL here"
+      type="url"
+      value=""
+    />
+    <label
+      for="genre"
+    >
+      Genre
+    </label>
+    <input
+      class="form-control "
+      id="genreInput"
+      list="genres"
+      name="genres"
+      placeholder="Select genre"
+      type="text"
+      value=""
+    />
+    <datalist
+      id="genres"
+    />
+    <label
+      for="overview"
+    >
+      Overview
+    </label>
+    <input
+      class="form-control "
+      id="overview"
+      name="overview"
+      placeholder="Overview here"
+      type="text"
+      value=""
+    />
+    <label
+      for="runtime"
+    >
+      Runtime
+    </label>
+    <input
+      class="form-control "
+      id="runtime"
+      name="runtime"
+      placeholder="Runtime here"
+      type="number"
+    />
+  </div>
+  <div
+    class="d-flex justify-content-end"
+  >
+    <button
+      class="btn reset"
+      type="reset"
+    >
+      Reset
+    </button>
+    <button
+      class="btn submit"
+      type="submit"
+    >
+      Save
+    </button>
+  </div>
+</form>
+`;
