@@ -1,35 +1,40 @@
-import React, { Fragment } from 'react';
+import 'isomorphic-fetch';
+import 'babel-polyfill';
+import React from 'react';
+import { hot } from 'react-hot-loader';
+import { Switch, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
 import ErrorBoundary from './components/errorBoundary';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Header from './components/header';
 import MovieDetailsWrapper from './components/movieDetailsWrapper';
 import MovieSearchWrapper from './components/movieSearchWrapper';
 import MovieList from './components/movieList';
 import Footer from './components/footer';
-import NoMovies from './components/noMovies';
 import NoMatch from './components/noMatch';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './css/style.css';
+// import 'bootstrap/dist/css/bootstrap.min.css'; ??????
+// import style from './css/style.css';
 
-export default function App() {
+function App({ Router, location, context, store }) {
 
   return (
-    <ErrorBoundary>
-      <Router>
-        <Switch>
-        <Route exact path='/'>
-          <Header />
-          <MovieList />
-        </Route>
-        <Route path='/search/:query' component={MovieSearchWrapper} />
-        <Route path='/film/:id' component={MovieDetailsWrapper} />
-        <Route path='*'>
-          <NoMatch />
-        </Route>
-        </Switch>
-        <Footer/>
-      </Router>
-    </ErrorBoundary>
+    <Provider store={store}>
+      <ErrorBoundary>
+        <Router location={location} context={context}>
+          <Switch>
+          <Route exact path='/'>
+            <Header />
+            <MovieList />
+          </Route>
+          <Route path='/search/:query' component={MovieSearchWrapper} />
+          <Route path='/film/:id' component={MovieDetailsWrapper} />
+          <Route path='*' component={NoMatch}/>
+          </Switch>
+          <Footer/>
+        </Router>
+      </ErrorBoundary>
+    </Provider>
   );
 }
+
+export default hot(module)(App);
